@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Seller Dashboard STOREU - Manajemen produk dan statistik penjual.">
+    <title>Seller Dashboard — STOREU</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='fg' x1='0' y1='0' x2='1' y2='1'><stop offset='0%25' stop-color='%236366f1'/><stop offset='100%25' stop-color='%23a855f7'/></linearGradient></defs><rect width='32' height='32' rx='8' fill='url(%23fg)'/><text x='50%25' y='54%25' dominant-baseline='central' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold' font-size='18'>S</text></svg>">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">
+            <div class="logo-icon">
+                <svg width="22" height="22" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 8 L16 4 L26 8 L26 14 C26 21 21 27 16 28 C11 27 6 21 6 14Z" fill="currentColor" opacity="0.15"/>
+                    <path d="M12 14 L15 17 L21 11" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    <path d="M6 8 L16 4 L26 8 L26 14 C26 21 21 27 16 28 C11 27 6 21 6 14Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                </svg>
+            </div>
+            <span>STORE<span class="text-gradient">U</span></span>
+        </a>
+        <ul class="navbar-nav" id="navbar-nav">
+            <li><a href="/" class="nav-link">🏠 Store</a></li>
+        </ul>
+        <div class="navbar-tools">
+            <button class="sound-toggle" id="sound-toggle" aria-label="Efek suara: mati" aria-pressed="false" title="Efek suara">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-sound-off" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="22" x2="16" y1="9" y2="15"/><line x1="16" x2="22" y1="9" y2="15"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-sound-on" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+            </button>
+            <button class="mobile-toggle" id="mobile-toggle" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="navbar-nav">☰</button>
+        </div>
+        <div class="nav-actions" id="nav-actions"></div>
+    </nav>
+
+    <main class="main-content">
+        <div class="admin-layout">
+            <aside class="admin-sidebar">
+                <div class="sidebar-title">Seller Dashboard</div>
+                <ul class="sidebar-nav">
+                    <li><a href="/seller/index.html" class="sidebar-link active"><i data-lucide="bar-chart-2" style="width:18px;height:18px"></i> Overview</a></li>
+                    <li><a href="/seller/products.html" class="sidebar-link"><i data-lucide="package" style="width:18px;height:18px"></i> Produk Saya</a></li>
+                    <li><a href="/seller/orders.html" class="sidebar-link"><i data-lucide="receipt" style="width:18px;height:18px"></i> Pesanan Masuk</a></li>
+                </ul>
+                <div class="sidebar-title">Quick Links</div>
+                <ul class="sidebar-nav">
+                    <li><a href="/" class="sidebar-link"><i data-lucide="store" style="width:18px;height:18px"></i> Lihat Store</a></li>
+                    <li><a href="#" class="sidebar-link" onclick="if(window.openNexChat){window.openNexChat();}else{alert('Chat widget sedang dimuat...');}"><i data-lucide="message-circle" style="width:18px;height:18px"></i> Chat Admin</a></li>
+                    <li><a href="#" class="sidebar-link" onclick="logout()"><i data-lucide="log-out" style="width:18px;height:18px"></i> Logout</a></li>
+                </ul>
+            </aside>
+
+            <div class="admin-content">
+                <h2 style="margin-bottom:8px"><i data-lucide="store" style="width:24px;height:24px;display:inline-block;vertical-align:middle;margin-right:8px;color:var(--accent-primary)"></i> Seller <span class="text-gradient">Overview</span></h2>
+                <p style="color:var(--text-secondary);margin-bottom:32px">Pantau performa penjualan dan pendapatan komisi produk Anda</p>
+
+                <div class="stats-grid" id="stats-grid">
+                    <div class="glass-card stat-card green">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-value" id="stat-commission">-</div>
+                        <div class="stat-label">Total Komisi (80%)</div>
+                    </div>
+                    <div class="glass-card stat-card cyan">
+                        <div class="stat-icon">📦</div>
+                        <div class="stat-value" id="stat-sold-items">-</div>
+                        <div class="stat-label">Total Item Terjual</div>
+                    </div>
+                    <div class="glass-card stat-card purple">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-value" id="stat-daily" style="font-size:1.35rem">-</div>
+                        <div class="stat-label">Komisi Hari Ini</div>
+                    </div>
+                    <div class="glass-card stat-card orange">
+                        <div class="stat-icon">📈</div>
+                        <div class="stat-value" id="stat-weekly" style="font-size:1.35rem">-</div>
+                        <div class="stat-label">Komisi Minggu Ini (7 Hari)</div>
+                    </div>
+                </div>
+
+                <div class="glass-card" style="padding:24px;margin-top:24px">
+                    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px">
+                        <h3 style="margin:0">📅 Rangkuman Omset Seller</h3>
+                        <a href="/seller/orders.html" class="btn btn-secondary btn-sm">Lihat Semua Pesanan Masuk →</a>
+                    </div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:20px;padding:16px;background:var(--bg-tertiary);border-radius:var(--radius-md);border:var(--border-light)">
+                        <div>
+                            <div style="font-size:0.85rem;color:var(--text-muted)">Komisi Bulan Ini</div>
+                            <div id="stat-monthly" style="font-size:1.4rem;font-weight:700;color:var(--accent-green)">-</div>
+                        </div>
+                        <div>
+                            <div style="font-size:0.85rem;color:var(--text-muted)">Persentase Bagi Hasil</div>
+                            <div style="font-size:1.4rem;font-weight:700;color:var(--accent-cyan)">80% Seller / 20% Admin</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card" style="padding:24px;margin-top:24px">
+                    <h3 style="margin-bottom:20px">📈 Produk Terjual</h3>
+                    <div id="sold-products">
+                        <div class="page-loading"><div class="loading-spinner"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/app.js"></script>
+    <script src="/js/sound.js"></script>
+    <script src="/js/motion.js"></script>
+    <script>
+        async function loadDashboard() {
+            try {
+                // Load stats
+                const statsData = await API.get('/api/orders/seller/stats');
+                const s = statsData.stats;
+
+                document.getElementById('stat-commission').textContent = formatRupiah(s.total_commission);
+                document.getElementById('stat-sold-items').textContent = s.sold_items;
+                document.getElementById('stat-daily').textContent = formatRupiah(s.daily_commission);
+                document.getElementById('stat-weekly').textContent = formatRupiah(s.weekly_commission);
+                document.getElementById('stat-monthly').textContent = formatRupiah(s.monthly_commission);
+
+                // Load sold products
+                const soldProducts = s.sold_products || [];
+
+                if (soldProducts.length === 0) {
+                    document.getElementById('sold-products').innerHTML = `
+                        <div style="text-align:center;padding:32px;color:var(--text-muted)">
+                            <div style="font-size:2rem;margin-bottom:8px">📦</div>
+                            <p>Belum ada produk yang terjual.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                document.getElementById('sold-products').innerHTML = `
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Nama Produk</th>
+                                <th style="text-align:center">Qty Terjual</th>
+                                <th style="text-align:right">Total Komisi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${soldProducts.map(p => `
+                                <tr>
+                                    <td><span style="font-weight:600;color:var(--text-primary)">${p.name}</span></td>
+                                    <td style="text-align:center">${p.qty}</td>
+                                    <td style="text-align:right;font-weight:600;color:var(--accent-green)">${formatRupiah(p.revenue)}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+            } catch (err) {
+                if (err.message.includes('Unauthorized') || err.message.includes('Forbidden') || err.message.includes('Seller access required')) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+                showToast(err.message, 'error');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadDashboard);
+    </script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        if (window.lucide) {
+            lucide.createIcons();
+            // Automatically update icons when DOM changes (for dynamic content)
+            const observer = new MutationObserver((mutations) => {
+                let shouldUpdate = false;
+                for (let m of mutations) {
+                    if (m.addedNodes.length > 0) {
+                        shouldUpdate = true;
+                        break;
+                    }
+                }
+                if (shouldUpdate) {
+                    observer.disconnect(); // Prevent infinite loops
+                    lucide.createIcons();
+                    observer.observe(document.body, { childList: true, subtree: true });
+                }
+            });
+            observer.observe(document.body, { childList: true, subtree: true });
+        }
+    </script>
+</body>
+</html>

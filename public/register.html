@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Daftar akun STOREU dan mulai nikmati digital entertainment terlengkap.">
+    <title>Register — STOREU</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='fg' x1='0' y1='0' x2='1' y2='1'><stop offset='0%25' stop-color='%236366f1'/><stop offset='100%25' stop-color='%23a855f7'/></linearGradient></defs><rect width='32' height='32' rx='8' fill='url(%23fg)'/><text x='50%25' y='54%25' dominant-baseline='central' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold' font-size='18'>S</text></svg>">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">
+            <div class="logo-icon">
+                <svg width="22" height="22" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 8 L16 4 L26 8 L26 14 C26 21 21 27 16 28 C11 27 6 21 6 14Z" fill="currentColor" opacity="0.15"/>
+                    <path d="M12 14 L15 17 L21 11" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    <path d="M6 8 L16 4 L26 8 L26 14 C26 21 21 27 16 28 C11 27 6 21 6 14Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                </svg>
+            </div>
+            <span>STORE<span class="text-gradient">U</span></span>
+        </a>
+        <ul class="navbar-nav" id="navbar-nav">
+            <li><a href="/" class="nav-link"><i data-lucide="home" style="width:16px;height:16px;margin-bottom:-2px"></i> Home</a></li>
+        </ul>
+        <div class="navbar-tools">
+            <button class="sound-toggle" id="sound-toggle" aria-label="Efek suara: mati" aria-pressed="false" title="Efek suara">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-sound-off" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="22" x2="16" y1="9" y2="15"/><line x1="16" x2="22" y1="9" y2="15"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-sound-on" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+            </button>
+            <button class="mobile-toggle" id="mobile-toggle" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="navbar-nav">☰</button>
+        </div>
+        <div class="nav-actions" id="nav-actions">
+            <a href="/login.html" class="btn btn-secondary btn-sm">Login</a>
+            <a href="/register.html" class="btn btn-primary btn-sm">Register</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="auth-container">
+            <div class="glass-card auth-card">
+                <h2>Buat Akun Baru <i data-lucide="store" style="display:inline-block;vertical-align:middle;color:var(--accent-primary)"></i></h2>
+                <p class="auth-subtitle">Daftar dan mulai belanja digital entertainment</p>
+
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" class="form-control" placeholder="Pilih username" required minlength="3" autocomplete="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="form-control" placeholder="email@example.com" required autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="form-control" placeholder="Minimal 6 karakter" required minlength="6" autocomplete="new-password">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Konfirmasi Password</label>
+                        <input type="password" id="confirm-password" class="form-control" placeholder="Ulangi password" required autocomplete="new-password">
+                    </div>
+                    <div class="form-group">
+                        <label>Daftar Sebagai</label>
+                        <div class="role-selection" style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="radio" name="role" value="user" checked> User / Pembeli
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="radio" name="role" value="seller"> Seller / Penjual
+                            </label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg" style="width:100%" id="register-btn">
+                        <i data-lucide="user-plus" style="display:inline-block;width:18px;height:18px;vertical-align:middle;margin-right:6px"></i> Daftar Sekarang
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    Sudah punya akun? <a href="/login.html">Login di sini</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/app.js"></script>
+    <script src="/js/sound.js"></script>
+    <script src="/js/motion.js"></script>
+    <script>
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const password = document.getElementById('password').value;
+            const confirm = document.getElementById('confirm-password').value;
+
+            if (password !== confirm) {
+                showToast('Password tidak cocok!', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('register-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<i data-lucide="loader" class="animate-spin" style="width:18px;height:18px;display:inline-block;vertical-align:middle;margin-right:6px"></i> Loading...';
+            lucide.createIcons();
+
+            try {
+                const role = document.querySelector('input[name="role"]:checked').value;
+                const data = await API.post('/api/auth/register', {
+                    username: document.getElementById('username').value,
+                    email: document.getElementById('email').value,
+                    password: password,
+                    role: role
+                });
+
+                showToast('Registrasi berhasil! 🎉', 'success');
+                if (typeof CartStore !== 'undefined') CartStore.clear(); // Clear guest cart
+                setTimeout(() => {
+                    window.location.href = '/login.html';
+                }, 1500);
+            } catch (err) {
+                showToast(err.message, 'error');
+                btn.disabled = false;
+                btn.innerHTML = '<i data-lucide="user-plus" style="display:inline-block;width:18px;height:18px;vertical-align:middle;margin-right:6px"></i> Daftar Sekarang';
+                lucide.createIcons();
+            }
+        });
+    </script>
+    
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        if (window.lucide) {
+            lucide.createIcons();
+            // Automatically update icons when DOM changes (for dynamic content)
+            const observer = new MutationObserver((mutations) => {
+                let shouldUpdate = false;
+                for (let m of mutations) {
+                    if (m.addedNodes.length > 0) {
+                        shouldUpdate = true;
+                        break;
+                    }
+                }
+                if (shouldUpdate) {
+                    observer.disconnect(); // Prevent infinite loops
+                    lucide.createIcons();
+                    observer.observe(document.body, { childList: true, subtree: true });
+                }
+            });
+            observer.observe(document.body, { childList: true, subtree: true });
+        }
+    </script>
+</body>
+</html>

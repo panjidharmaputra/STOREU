@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Login ke akun STOREU kamu untuk mulai belanja digital entertainment.">
+    <title>Login — STOREU</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='fg' x1='0' y1='0' x2='1' y2='1'><stop offset='0%25' stop-color='%236366f1'/><stop offset='100%25' stop-color='%23a855f7'/></linearGradient></defs><rect width='32' height='32' rx='8' fill='url(%23fg)'/><text x='50%25' y='54%25' dominant-baseline='central' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold' font-size='18'>S</text></svg>">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">
+            <div class="logo-icon">
+                <svg width="22" height="22" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 8 L16 4 L26 8 L26 14 C26 21 21 27 16 28 C11 27 6 21 6 14Z" fill="currentColor" opacity="0.15"/>
+                    <path d="M12 14 L15 17 L21 11" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    <path d="M6 8 L16 4 L26 8 L26 14 C26 21 21 27 16 28 C11 27 6 21 6 14Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                </svg>
+            </div>
+            <span>STORE<span class="text-gradient">U</span></span>
+        </a>
+        <ul class="navbar-nav" id="navbar-nav">
+            <li><a href="/" class="nav-link"><i data-lucide="home" style="width:16px;height:16px;margin-bottom:-2px"></i> Home</a></li>
+        </ul>
+        <div class="navbar-tools">
+            <button class="sound-toggle" id="sound-toggle" aria-label="Efek suara: mati" aria-pressed="false" title="Efek suara">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-sound-off" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="22" x2="16" y1="9" y2="15"/><line x1="16" x2="22" y1="9" y2="15"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-sound-on" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+            </button>
+            <button class="mobile-toggle" id="mobile-toggle" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="navbar-nav">☰</button>
+        </div>
+        <div class="nav-actions" id="nav-actions">
+            <a href="/login.html" class="btn btn-secondary btn-sm">Login</a>
+            <a href="/register.html" class="btn btn-primary btn-sm">Register</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="auth-container">
+            <div class="glass-card auth-card">
+                <h2>Welcome Back <i data-lucide="hand" style="color:var(--accent-primary);display:inline-block"></i></h2>
+                <p class="auth-subtitle">Login ke akun STOREU kamu</p>
+
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" class="form-control" placeholder="Masukkan username" required autocomplete="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="form-control" placeholder="Masukkan password" required autocomplete="current-password">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg" style="width:100%" id="login-btn">
+                        <i data-lucide="log-in" style="width:18px;height:18px;display:inline-block;vertical-align:middle;margin-right:6px"></i> Login
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    Belum punya akun? <a href="/register.html">Register sekarang</a>
+                </div>
+
+                <div style="margin-top:24px;padding:16px;background:var(--bg-tertiary);border:var(--border-light);border-radius:var(--radius-md)">
+                    <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;font-weight:600">Demo Accounts:</div>
+                    <div style="font-size:0.85rem;margin-bottom:4px"><i data-lucide="crown" style="width:14px;height:14px"></i> Admin: <code style="color:#18181b;font-weight:700;background:#ffffff;padding:2px 6px;border-radius:4px;border:var(--border-light)">admin</code> / <code style="color:#18181b;font-weight:700;background:#ffffff;padding:2px 6px;border-radius:4px;border:var(--border-light)">admin123</code></div>
+                    <div style="font-size:0.85rem;margin-bottom:4px"><i data-lucide="store" style="width:14px;height:14px"></i> Seller: <code style="color:#18181b;font-weight:700;background:#ffffff;padding:2px 6px;border-radius:4px;border:var(--border-light)">seller1</code> / <code style="color:#18181b;font-weight:700;background:#ffffff;padding:2px 6px;border-radius:4px;border:var(--border-light)">seller123</code></div>
+                    <div style="font-size:0.85rem"><i data-lucide="user" style="width:14px;height:14px"></i> User: <code style="color:#18181b;font-weight:700;background:#ffffff;padding:2px 6px;border-radius:4px;border:var(--border-light)">user1</code> / <code style="color:#18181b;font-weight:700;background:#ffffff;padding:2px 6px;border-radius:4px;border:var(--border-light)">user123</code></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/app.js"></script>
+    <script src="/js/sound.js"></script>
+    <script src="/js/motion.js"></script>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('login-btn');
+            btn.disabled = true;
+            btn.textContent = 'Loading...';
+
+            try {
+                const data = await API.post('/api/auth/login', {
+                    username: document.getElementById('username').value,
+                    password: document.getElementById('password').value
+                });
+
+                if (data.user) {
+                    localStorage.setItem('storeu_user', JSON.stringify(data.user));
+                    AppState.user = data.user;
+                }
+
+                showToast('Login berhasil! Selamat datang, ' + data.user.username, 'success');
+
+                setTimeout(() => {
+                    if (data.user.role === 'admin') {
+                        window.location.href = '/admin/dashboard.html';
+                    } else {
+                        window.location.href = '/';
+                    }
+                }, 600);
+            } catch (err) {
+                showToast(err.message, 'error');
+                btn.disabled = false;
+                btn.innerHTML = '<i data-lucide="log-in" style="width:18px;height:18px;display:inline-block;vertical-align:middle;margin-right:6px"></i> Login';
+                lucide.createIcons();
+            }
+        });
+    </script>
+    
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        if (window.lucide) {
+            lucide.createIcons();
+            // Automatically update icons when DOM changes (for dynamic content)
+            const observer = new MutationObserver((mutations) => {
+                let shouldUpdate = false;
+                for (let m of mutations) {
+                    if (m.addedNodes.length > 0) {
+                        shouldUpdate = true;
+                        break;
+                    }
+                }
+                if (shouldUpdate) {
+                    observer.disconnect(); // Prevent infinite loops
+                    lucide.createIcons();
+                    observer.observe(document.body, { childList: true, subtree: true });
+                }
+            });
+            observer.observe(document.body, { childList: true, subtree: true });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentasi Project STOREU</title>
+    <!-- Load marked.js to parse markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #fff;
+        }
+        h1, h2, h3, h4 { color: #111; margin-top: 1.5em; border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; }
+        h1 { font-size: 2.2em; border-bottom: 2px solid #eaecef; text-align: center; }
+        table { border-collapse: collapse; width: 100%; margin-bottom: 1.5em; font-size: 0.9em; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f6f8fa; font-weight: 600; }
+        tr:nth-child(even) { background-color: #fbfcfd; }
+        code { background: #f6f8fa; padding: 0.2em 0.4em; border-radius: 3px; font-family: monospace; font-size: 0.9em; }
+        pre { background: #f6f8fa; padding: 16px; border-radius: 6px; overflow-x: auto; }
+        pre code { background: transparent; padding: 0; }
+        a { color: #0366d6; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        blockquote { border-left: 4px solid #dfe2e5; color: #6a737d; padding: 0 1em; margin-left: 0; }
+        
+        .print-btn {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+            background: #0366d6;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            border: none;
+        }
+        .print-btn:hover { background: #005cc5; text-decoration: none; }
+        
+        @media print {
+            .print-btn { display: none; }
+            body { padding: 0; max-width: none; }
+            a { text-decoration: none !important; color: #000; }
+            h1, h2, h3 { page-break-after: avoid; }
+            table, pre { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn" onclick="window.print()">🖨️ Cetak / Simpan sebagai PDF</button>
+    <div id="content">Loading documentation...</div>
+
+    <script>
+        // Fetch the markdown file and render it
+        fetch('DOKUMENTASI_STOREU.md')
+            .then(response => response.text())
+            .then(text => {
+                document.getElementById('content').innerHTML = marked.parse(text);
+            })
+            .catch(err => {
+                document.getElementById('content').innerHTML = '<p style="color:red">Gagal memuat file DOKUMENTASI_STOREU.md. Pastikan file ini dijalankan di live server atau web server lokal.</p>';
+            });
+    </script>
+</body>
+</html>

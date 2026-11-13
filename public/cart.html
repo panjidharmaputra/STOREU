@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Keranjang belanja STOREU. Review dan checkout produk digital kamu.">
+    <title>Keranjang — STOREU</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='fg' x1='0' y1='0' x2='1' y2='1'><stop offset='0%25' stop-color='%236366f1'/><stop offset='100%25' stop-color='%23a855f7'/></linearGradient></defs><rect width='32' height='32' rx='8' fill='url(%23fg)'/><text x='50%25' y='54%25' dominant-baseline='central' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold' font-size='18'>S</text></svg>">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">
+            <div class="logo-icon">
+                <svg width="22" height="22" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 8 L16 4 L26 8 L26 14 C26 21 21 27 16 28 C11 27 6 21 6 14Z" fill="currentColor" opacity="0.15"/>
+                    <path d="M12 14 L15 17 L21 11" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    <path d="M6 8 L16 4 L26 8 L26 14 C26 21 21 27 16 28 C11 27 6 21 6 14Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                </svg>
+            </div>
+            <span>STORE<span class="text-gradient">U</span></span>
+        </a>
+        <ul class="navbar-nav" id="navbar-nav">
+            <li><a href="/" class="nav-link"><i data-lucide="home" style="width:16px;height:16px;margin-bottom:-2px"></i> Home</a></li>
+            <li><a href="/#catalog" class="nav-link"><i data-lucide="target" style="width:16px;height:16px;margin-bottom:-2px"></i> Katalog</a></li>
+        </ul>
+        <div class="navbar-tools">
+            <button class="sound-toggle" id="sound-toggle" aria-label="Efek suara: mati" aria-pressed="false" title="Efek suara">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-sound-off" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="22" x2="16" y1="9" y2="15"/><line x1="16" x2="22" y1="9" y2="15"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-sound-on" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+            </button>
+            <button class="mobile-toggle" id="mobile-toggle" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="navbar-nav">☰</button>
+        </div>
+        <div class="nav-actions" id="nav-actions"></div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container cart-page">
+            <div class="page-header">
+                <h1><i data-lucide="shopping-cart" style="width:32px;height:32px;display:inline-block;vertical-align:middle;margin-right:8px;color:var(--accent-primary)"></i> Keranjang <span class="text-gradient">Belanja</span></h1>
+                <p>Review item sebelum checkout</p>
+            </div>
+
+            <div id="cart-content">
+                <div class="page-loading"><div class="loading-spinner"></div></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/app.js"></script>
+    <script src="/js/sound.js"></script>
+    <script src="/js/motion.js"></script>
+    <script>
+        let cartItems = [];
+        let cartTotal = 0;
+        let selectedItemIds = new Set();
+
+        async function loadCart() {
+            // 1. Instantly load from client CartStore
+            const localItems = CartStore.getItems();
+            if (localItems.length > 0) {
+                cartItems = localItems;
+                cartItems.forEach(item => selectedItemIds.add(item.product_id || item.id));
+                updateTotal();
+                renderCart();
+            }
+
+            // 2. Fetch server cart
+            try {
+                const data = await API.get('/api/cart');
+                const serverItems = data.items || [];
+
+                if (serverItems.length > 0) {
+                    // Merge server items with local items
+                    const map = new Map();
+                    localItems.forEach(i => map.set(parseInt(i.product_id || i.id, 10), i));
+                    serverItems.forEach(s => {
+                        const pid = parseInt(s.product_id || s.id, 10);
+                        if (!map.has(pid)) {
+                            map.set(pid, s);
+                        } else {
+                            map.get(pid).quantity = Math.max(map.get(pid).quantity, s.quantity);
+                        }
+                    });
+                    cartItems = Array.from(map.values());
+                    CartStore.saveItems(cartItems);
+                } else if (localItems.length > 0) {
+                    // Server has no items, sync local items to server
+                    API.post('/api/cart/sync', { items: localItems }).catch(() => {});
+                } else {
+                    cartItems = [];
+                }
+
+                selectedItemIds.clear();
+                cartItems.forEach(item => selectedItemIds.add(item.product_id || item.id));
+                updateTotal();
+                renderCart();
+            } catch (err) {
+                if (err.message && (err.message.includes('Unauthorized') || err.message.includes('login'))) {
+                    if (cartItems.length === 0) {
+                        document.getElementById('cart-content').innerHTML = `
+                            <div class="empty-state">
+                                <div class="empty-icon"><i data-lucide="lock" style="width:48px;height:48px;margin:auto"></i></div>
+                                <h3>Login diperlukan</h3>
+                                <p>Silakan login untuk melihat keranjang belanja kamu</p>
+                                <a href="/login.html" class="btn btn-primary">Login</a>
+                            </div>
+                        `;
+                    }
+                }
+            }
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-content');
+
+            if (cartItems.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-art" aria-hidden="true"><i data-lucide="shopping-cart"></i></div>
+                        <h3>Keranjang kosong</h3>
+                        <p>Belum ada item di keranjang. Yuk mulai belanja!</p>
+                        <a href="/#catalog" class="btn btn-primary btn-glow" data-sound="click">Jelajahi Katalog</a>
+                    </div>
+                `;
+                if (window.lucide) lucide.createIcons();
+                return;
+            }
+
+            const itemsHtml = cartItems.map(item => {
+                const itemId = item.product_id || item.id;
+                const isSelected = selectedItemIds.has(itemId) || selectedItemIds.has(item.id);
+                return `
+                <div class="glass-card cart-item" data-cart-id="${itemId}">
+                    <div style="display:flex;align-items:center;padding:0 15px;">
+                        <input type="checkbox" class="item-checkbox" data-id="${itemId}" ${isSelected ? 'checked' : ''} onchange="toggleItem(${itemId})" style="transform:scale(1.5);cursor:pointer;">
+                    </div>
+                    <div class="item-image">
+                        ${item.image_url ? `<img src="${item.image_url}" alt="${item.name}" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';">` : ''}
+                        <div class="placeholder-img" style="${item.image_url ? 'display:none;' : ''}font-size:1.5rem">${getCategoryIcon(item.category)}</div>
+                    </div>
+                    <div class="item-info">
+                        <h4>${item.name}</h4>
+                        <span class="item-category">${item.category || 'Digital'}</span>
+                    </div>
+                    <div class="item-quantity">
+                        <button class="qty-btn" onclick="updateQty(${itemId}, ${(item.quantity || 1) - 1})">−</button>
+                        <span class="qty-value">${item.quantity || 1}</span>
+                        <button class="qty-btn" onclick="updateQty(${itemId}, ${(item.quantity || 1) + 1})">+</button>
+                    </div>
+                    <div class="item-price" style="display:flex; flex-direction:column; align-items:flex-end;">
+                        ${item.discount_percentage > 0 ? `<div style="font-size:0.8rem;text-decoration:line-through;color:var(--text-muted)">${formatRupiah(item.price)}</div>` : ''}
+                        <div style="font-size:0.9rem; color:var(--text-muted)">${formatRupiah(item.actual_price || item.price)} <span style="font-size:0.8rem">x ${item.quantity || 1}</span></div>
+                        <div style="font-weight:bold; color:var(--text-primary); margin-top:4px;">${formatRupiah((item.actual_price || item.price) * (item.quantity || 1))}</div>
+                    </div>
+                    <button class="item-remove" onclick="removeItem(${itemId})" title="Hapus"><i data-lucide="trash-2" style="width:18px;height:18px"></i></button>
+                </div>
+            `}).join('');
+
+            container.innerHTML = `
+                <div class="cart-layout">
+                    <div class="cart-items">${itemsHtml}</div>
+                    <div class="glass-card cart-summary">
+                        <h3><i data-lucide="clipboard-list" style="display:inline-block;width:24px;height:24px;vertical-align:middle;margin-right:8px"></i> Ringkasan</h3>
+                        <div class="summary-row">
+                            <span>Subtotal (${cartItems.length} item)</span>
+                            <span>${formatRupiah(cartTotal)}</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Biaya Layanan</span>
+                            <span style="color:var(--accent-green)">Gratis</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total</span>
+                            <span>${formatRupiah(cartTotal)}</span>
+                        </div>
+                        <button class="btn btn-primary btn-lg" style="width:100%;margin-top:20px" onclick="proceedCheckout()">
+                            <i data-lucide="credit-card" style="display:inline-block;width:18px;height:18px;vertical-align:middle;margin-right:8px"></i> Checkout
+                        </button>
+                        <a href="/" class="btn btn-secondary btn-sm" style="width:100%;margin-top:8px;text-align:center">
+                            ← Lanjut Belanja
+                        </a>
+                    </div>
+                </div>
+            `;
+            if (window.lucide) lucide.createIcons();
+        }
+
+        async function updateQty(itemId, newQty) {
+            if (newQty <= 0) {
+                await removeItem(itemId);
+                return;
+            }
+            CartStore.updateQty(itemId, newQty);
+            API.put(`/api/cart/${itemId}`, { quantity: newQty }).catch(() => {});
+            cartItems = CartStore.getItems();
+            updateTotal();
+            renderCart();
+        }
+
+        async function removeItem(itemId) {
+            const el = document.querySelector('.cart-item[data-cart-id="'+itemId+'"]');
+            if (el && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                el.classList.add('removing');
+                await new Promise(r => setTimeout(r, 240));
+            }
+            CartStore.removeItem(itemId);
+            API.delete(`/api/cart/${itemId}`).catch(() => {});
+            selectedItemIds.delete(itemId);
+            cartItems = CartStore.getItems();
+            showToast('Item dihapus dari keranjang', 'info');
+            updateTotal();
+            renderCart();
+        }
+
+        function updateTotal() {
+            cartTotal = cartItems
+                .filter(item => selectedItemIds.has(item.product_id || item.id) || selectedItemIds.has(item.id))
+                .reduce((sum, item) => sum + ((item.actual_price || item.price) * (item.quantity || 1)), 0);
+        }
+
+        function toggleItem(itemId) {
+            if (selectedItemIds.has(itemId)) {
+                selectedItemIds.delete(itemId);
+            } else {
+                selectedItemIds.add(itemId);
+            }
+            updateTotal();
+            renderCart();
+        }
+
+        function proceedCheckout() {
+            const selectedList = cartItems.filter(item => selectedItemIds.has(item.product_id || item.id) || selectedItemIds.has(item.id));
+            if (selectedList.length === 0) {
+                showToast('Pilih minimal satu item untuk checkout', 'warning');
+                return;
+            }
+            sessionStorage.setItem('storeu_checkout_data', JSON.stringify(selectedList));
+            sessionStorage.setItem('storeu_checkout_items', JSON.stringify(Array.from(selectedItemIds)));
+            window.location.href = '/checkout.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await checkAuth();
+            await loadCart();
+        });
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="STOREU — Platform digital entertainment. Beli game, film & series, musik, dan ebook favorit kamu. Bayar sekali, akses instan.">
+    <meta name="theme-color" content="#0a0918">
+    <title>STOREU — Enter the Digital Universe</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='fg' x1='0' y1='0' x2='1' y2='1'><stop offset='0%25' stop-color='%236366f1'/><stop offset='100%25' stop-color='%23a855f7'/></linearGradient></defs><rect width='32' height='32' rx='8' fill='url(%23fg)'/><text x='50%25' y='54%25' dominant-baseline='central' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold' font-size='18'>S</text></svg>">
+</head>
+<body>
+    <a class="skip-link" href="#catalog">Lewati ke katalog</a>
+
+    <!-- Top Promotional Banner (diisi dinamis dari data diskon asli) -->
+    <div class="promo-banner" id="promo-banner" hidden></div>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar" aria-label="Navigasi utama">
+        <a href="/" class="navbar-brand" aria-label="STOREU — beranda">
+            <div class="logo-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 8 L16 4 L26 8 L26 14 C26 21 21 27 16 28 C11 27 6 21 6 14Z" fill="currentColor" opacity="0.15"/>
+                    <path d="M12 14 L15 17 L21 11" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    <path d="M6 8 L16 4 L26 8 L26 14 C26 21 21 27 16 28 C11 27 6 21 6 14Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                </svg>
+            </div>
+            <span>STORE<span class="text-gradient">U</span></span>
+        </a>
+
+        <ul class="navbar-nav" id="navbar-nav">
+            <li><a href="/" class="nav-link active"><i data-lucide="home" style="width:16px;height:16px;margin-bottom:-2px"></i> Home</a></li>
+            <li><a href="#catalog" class="nav-link"><i data-lucide="layout-grid" style="width:16px;height:16px;margin-bottom:-2px"></i> Katalog</a></li>
+            <li><a href="#categories" class="nav-link"><i data-lucide="folder" style="width:16px;height:16px;margin-bottom:-2px"></i> Kategori</a></li>
+        </ul>
+
+        <div class="navbar-tools">
+            <button class="sound-toggle" id="sound-toggle" aria-label="Efek suara: mati" aria-pressed="false" title="Efek suara">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-sound-off" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="22" x2="16" y1="9" y2="15"/><line x1="16" x2="22" y1="9" y2="15"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-sound-on" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+            </button>
+            <button class="mobile-toggle" id="mobile-toggle" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="navbar-nav">☰</button>
+        </div>
+
+        <div class="nav-actions" id="nav-actions">
+            <a href="/login.html" class="btn btn-secondary btn-sm">Login</a>
+            <a href="/register.html" class="btn btn-primary btn-sm">Register</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- ══════════ HERO — Cinematic Introduction ══════════ -->
+        <section class="hero hero-cinematic" id="hero">
+            <canvas class="hero-canvas" id="hero-canvas" aria-hidden="true"></canvas>
+            <div class="hero-aurora" aria-hidden="true">
+                <span class="aurora orb-1"></span>
+                <span class="aurora orb-2"></span>
+                <span class="aurora orb-3"></span>
+            </div>
+
+            <div class="container hero-grid">
+                <div class="hero-copy">
+                    <div class="hero-badge reveal" data-reveal-delay="0">
+                        <span class="pulse-dot" aria-hidden="true"></span>
+                        Platform Digital Entertainment Indonesia
+                    </div>
+                    <h1 class="hero-title">
+                        <span class="reveal-line"><span>Enter the</span></span>
+                        <span class="reveal-line"><span class="text-gradient">Digital Universe.</span></span>
+                    </h1>
+                    <p class="hero-sub reveal" data-reveal-delay="2">
+                        Games, film &amp; series, musik, dan eBook pilihan — semua dalam satu platform.
+                        Bayar sekali, akses instan, tanpa ribet.
+                    </p>
+                    <div class="hero-actions reveal" data-reveal-delay="3">
+                        <a href="#catalog" class="btn btn-primary btn-lg btn-glow" data-sound="click">
+                            <i data-lucide="play"></i> Jelajahi Katalog
+                        </a>
+                        <a href="/register.html" class="btn btn-ghost btn-lg" data-sound="click">
+                            <i data-lucide="rocket"></i> Mulai Sekarang
+                        </a>
+                    </div>
+                    <dl class="hero-stats reveal" data-reveal-delay="4">
+                        <div class="hero-stat">
+                            <dt>Produk digital</dt>
+                            <dd><span id="stat-products">–</span></dd>
+                        </div>
+                        <div class="hero-stat">
+                            <dt>Kategori</dt>
+                            <dd>4</dd>
+                        </div>
+                        <div class="hero-stat">
+                            <dt>Akses</dt>
+                            <dd>Instan</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <div class="hero-visual reveal" data-reveal-delay="2">
+                    <div class="hero-card-stack">
+                        <a class="hero-card hc-back" href="/product.html?id=9" tabindex="-1" aria-hidden="true">
+                            <img src="/images/spiderverse.jpg" alt="" loading="lazy">
+                        </a>
+                        <a class="hero-card hc-mid" href="/product.html?id=1" tabindex="-1" aria-hidden="true">
+                            <img src="/images/cyberpunk.jpg" alt="" loading="lazy">
+                        </a>
+                        <a class="hero-card hc-front" href="/product.html?id=3">
+                            <img src="/images/eldenring.jpg" alt="Elden Ring: Shadow of the Erdtree">
+                            <span class="hero-card-tag"><i data-lucide="flame"></i> Unggulan</span>
+                        </a>
+                        <span class="hero-ring" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+
+            <a class="scroll-hint" href="#categories" aria-label="Gulir ke kategori">
+                <span class="scroll-hint-text">Gulir untuk jelajah</span>
+                <span class="scroll-hint-chevron" aria-hidden="true"><i data-lucide="chevron-down"></i></span>
+            </a>
+        </section>
+
+        <!-- ══════════ Categories ══════════ -->
+        <section class="section" id="categories">
+            <div class="container">
+                <div class="section-header reveal">
+                    <p class="section-kicker">Empat dunia, satu platform</p>
+                    <h2>Jelajahi <span class="text-gradient">Kategori</span></h2>
+                    <p class="section-sub">Setiap kategori punya karakternya sendiri. Pilih duniamu.</p>
+                </div>
+
+                <div class="category-grid reveal-group">
+                    <div class="cat-card cat-game reveal" role="button" tabindex="0" data-cat="game"
+                         onclick="filterByCategory('game')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();filterByCategory('game')}"
+                         aria-label="Jelajahi kategori Games">
+                        <div class="cat-art" style="background-image:url('/images/cyberpunk.jpg')" aria-hidden="true"></div>
+                        <div class="cat-shade" aria-hidden="true"></div>
+                        <div class="cat-content">
+                            <div class="cat-icon"><i data-lucide="gamepad-2"></i></div>
+                            <h3>Games</h3>
+                            <p>PC, Console &amp; Mobile</p>
+                            <span class="cat-cta">Jelajahi <i data-lucide="arrow-right"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="cat-card cat-film reveal" role="button" tabindex="0" data-cat="film"
+                         onclick="filterByCategory('film')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();filterByCategory('film')}"
+                         aria-label="Jelajahi kategori Film dan Series">
+                        <div class="cat-art" style="background-image:url('/images/dune2.jpg')" aria-hidden="true"></div>
+                        <div class="cat-shade" aria-hidden="true"></div>
+                        <div class="cat-streak" aria-hidden="true"></div>
+                        <div class="cat-content">
+                            <div class="cat-icon"><i data-lucide="clapperboard"></i></div>
+                            <h3>Film &amp; Series</h3>
+                            <p>4K Digital Download</p>
+                            <span class="cat-cta">Jelajahi <i data-lucide="arrow-right"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="cat-card cat-music reveal" role="button" tabindex="0" data-cat="music"
+                         onclick="filterByCategory('music')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();filterByCategory('music')}"
+                         aria-label="Jelajahi kategori Musik">
+                        <div class="cat-art" style="background-image:url('/images/spotify.jpg')" aria-hidden="true"></div>
+                        <div class="cat-shade" aria-hidden="true"></div>
+                        <div class="cat-eq" aria-hidden="true">
+                            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                        <div class="cat-content">
+                            <div class="cat-icon"><i data-lucide="music"></i></div>
+                            <h3>Musik</h3>
+                            <p>Streaming &amp; Download</p>
+                            <span class="cat-cta">Jelajahi <i data-lucide="arrow-right"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="cat-card cat-ebook reveal" role="button" tabindex="0" data-cat="ebook"
+                         onclick="filterByCategory('ebook')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();filterByCategory('ebook')}"
+                         aria-label="Jelajahi kategori eBook">
+                        <div class="cat-art" style="background-image:url('/images/sapiens.jpg')" aria-hidden="true"></div>
+                        <div class="cat-shade" aria-hidden="true"></div>
+                        <div class="cat-content">
+                            <div class="cat-icon"><i data-lucide="book-open"></i></div>
+                            <h3>eBook</h3>
+                            <p>PDF &amp; EPUB</p>
+                            <span class="cat-cta">Jelajahi <i data-lucide="arrow-right"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════ Featured Products ══════════ -->
+        <section class="section section-featured" id="featured">
+            <div class="container">
+                <div class="section-header reveal">
+                    <p class="section-kicker">Pilihan editor</p>
+                    <h2>Produk <span class="text-gradient">Unggulan</span></h2>
+                    <p class="section-sub">Kurasi terbaik minggu ini dari katalog STOREU</p>
+                </div>
+                <div class="product-grid" id="featured-products" aria-live="polite">
+                    <div class="skeleton-grid" aria-hidden="true">
+                        <div class="skeleton-card"></div><div class="skeleton-card"></div>
+                        <div class="skeleton-card"></div><div class="skeleton-card"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════ Full Catalog ══════════ -->
+        <section class="section" id="catalog">
+            <div class="container">
+                <div class="section-header reveal">
+                    <p class="section-kicker">Semua dalam satu tempat</p>
+                    <h2>Katalog <span class="text-gradient">Lengkap</span></h2>
+                    <p class="section-sub">Cari, saring, dan urutkan semua produk digital entertainment</p>
+                </div>
+
+                <div class="catalog-toolbar reveal">
+                    <div class="search-bar" role="search">
+                        <span class="search-icon" aria-hidden="true"><i data-lucide="search"></i></span>
+                        <input type="search" id="search-input" placeholder="Cari game, film, musik, ebook..."
+                               aria-label="Cari produk" oninput="handleSearch(this.value)" autocomplete="off">
+                        <button class="search-clear" id="search-clear" aria-label="Hapus pencarian" hidden>✕</button>
+                    </div>
+
+                    <div class="category-tabs" role="tablist" aria-label="Filter kategori">
+                        <button class="category-tab active" role="tab" aria-selected="true" data-category="all" onclick="filterByCategory('all')"><i data-lucide="sparkles"></i> Semua</button>
+                        <button class="category-tab" role="tab" aria-selected="false" data-category="game" onclick="filterByCategory('game')"><i data-lucide="gamepad-2"></i> Games</button>
+                        <button class="category-tab" role="tab" aria-selected="false" data-category="film" onclick="filterByCategory('film')"><i data-lucide="clapperboard"></i> Film</button>
+                        <button class="category-tab" role="tab" aria-selected="false" data-category="music" onclick="filterByCategory('music')"><i data-lucide="music"></i> Musik</button>
+                        <button class="category-tab" role="tab" aria-selected="false" data-category="ebook" onclick="filterByCategory('ebook')"><i data-lucide="book-open"></i> eBook</button>
+                    </div>
+
+                    <div class="sort-row" id="sort-buttons">
+                        <span class="sort-label">Urutkan:</span>
+                        <div class="sort-pills" role="group" aria-label="Urutkan produk">
+                            <button class="sort-btn active" data-sort="" onclick="handleSort('')">Relevan</button>
+                            <button class="sort-btn" data-sort="price_asc" onclick="handleSort('price_asc')">Termurah</button>
+                            <button class="sort-btn" data-sort="price_desc" onclick="handleSort('price_desc')">Termahal</button>
+                            <button class="sort-btn" data-sort="rating" onclick="handleSort('rating')">Rating Tertinggi</button>
+                            <button class="sort-btn" data-sort="newest" onclick="handleSort('newest')">Terbaru</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-grid" id="all-products" aria-live="polite">
+                    <div class="skeleton-grid" aria-hidden="true">
+                        <div class="skeleton-card"></div><div class="skeleton-card"></div>
+                        <div class="skeleton-card"></div><div class="skeleton-card"></div>
+                        <div class="skeleton-card"></div><div class="skeleton-card"></div>
+                        <div class="skeleton-card"></div><div class="skeleton-card"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════ Value props strip ══════════ -->
+        <section class="section section-strip">
+            <div class="container">
+                <div class="strip-grid reveal-group">
+                    <div class="strip-item reveal">
+                        <div class="strip-icon"><i data-lucide="zap"></i></div>
+                        <div><h4>Akses Instan</h4><p>Kode &amp; lisensi dikirim otomatis setelah pembayaran terkonfirmasi.</p></div>
+                    </div>
+                    <div class="strip-item reveal">
+                        <div class="strip-icon"><i data-lucide="shield-check"></i></div>
+                        <div><h4>Pembayaran Aman</h4><p>Transaksi terverifikasi dengan riwayat pesanan yang transparan.</p></div>
+                    </div>
+                    <div class="strip-item reveal">
+                        <div class="strip-icon"><i data-lucide="badge-check"></i></div>
+                        <div><h4>Produk Original</h4><p>Semua katalog berasal dari sumber resmi dan tepercaya.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════ Footer ══════════ -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <div class="footer-logo">
+                            <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <defs>
+                                    <linearGradient id="footer-logo-grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#818cf8"/>
+                                        <stop offset="100%" stop-color="#c084fc"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M6 8 L16 4 L26 8 L26 14 C26 21 21 27 16 28 C11 27 6 21 6 14Z" fill="url(#footer-logo-grad)" opacity="0.2"/>
+                                <path d="M12 14 L15 17 L21 11" stroke="url(#footer-logo-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                <path d="M6 8 L16 4 L26 8 L26 14 C26 21 21 27 16 28 C11 27 6 21 6 14Z" stroke="url(#footer-logo-grad)" stroke-width="1.5" fill="none"/>
+                            </svg>
+                            <h3>STORE<span class="text-gradient">U</span></h3>
+                        </div>
+                        <p>Platform digital entertainment Indonesia. Games, film &amp; series, musik, dan eBook — bayar sekali, akses instan.</p>
+                        <div class="footer-social" aria-label="Media sosial">
+                            <a href="#" aria-label="Instagram STOREU"><i data-lucide="instagram"></i></a>
+                            <a href="#" aria-label="Twitter STOREU"><i data-lucide="twitter"></i></a>
+                            <a href="#" aria-label="Youtube STOREU"><i data-lucide="youtube"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Kategori</h4>
+                        <a href="#catalog" onclick="filterByCategory('game');return false;">Games</a>
+                        <a href="#catalog" onclick="filterByCategory('film');return false;">Film &amp; Series</a>
+                        <a href="#catalog" onclick="filterByCategory('music');return false;">Musik</a>
+                        <a href="#catalog" onclick="filterByCategory('ebook');return false;">eBook</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Akun</h4>
+                        <a href="/login.html">Login</a>
+                        <a href="/register.html">Register</a>
+                        <a href="/orders.html">Pesanan Saya</a>
+                        <a href="/cart.html">Keranjang</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Bantuan</h4>
+                        <a href="#">FAQ</a>
+                        <a href="#">Kontak Kami</a>
+                        <a href="#">Kebijakan Privasi</a>
+                        <a href="#">Syarat &amp; Ketentuan</a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>© 2026 STOREU · Dibuat oleh Kelompok 9 — Digital Entrepreneurship</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Kembali ke atas" hidden>
+        <i data-lucide="arrow-up"></i>
+    </button>
+
+    <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
+
+    <script src="/js/app.js"></script>
+    <script src="/js/sound.js"></script>
+    <script src="/js/motion.js"></script>
+    <script>
+        let currentCategory = 'all';
+        let currentSearch = '';
+        let currentSort = '';
+
+        // Load featured products
+        async function loadFeatured() {
+            try {
+                const data = await API.get('/api/products?featured=1');
+                const container = document.getElementById('featured-products');
+                if (!data.products || data.products.length === 0) {
+                    container.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon"><i data-lucide="package" style="width:48px;height:48px;margin:auto"></i></div><h3>Belum ada produk unggulan</h3><p>Lihat katalog lengkap di bawah</p></div>';
+                } else {
+                    container.innerHTML = data.products.map(renderProductCard).join('');
+                }
+                if (window.lucide) lucide.createIcons();
+                if (window.StoreuMotion) StoreuMotion.revealGrid(container);
+            } catch (err) {
+                console.error('Failed to load featured:', err);
+                document.getElementById('featured-products').innerHTML = '<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">⚠️</div><h3>Gagal memuat produk</h3><p>Periksa koneksi lalu muat ulang halaman</p></div>';
+            }
+        }
+
+        // Load all products
+        async function loadProducts() {
+            try {
+                let url = '/api/products?';
+                if (currentCategory !== 'all') url += `category=${currentCategory}&`;
+                if (currentSearch) url += `search=${encodeURIComponent(currentSearch)}&`;
+                if (currentSort) url += `sort=${currentSort}&`;
+
+                const data = await API.get(url);
+                const container = document.getElementById('all-products');
+
+                if (!data.products || data.products.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state empty-catalog" style="grid-column:1/-1">
+                            <div class="empty-art" aria-hidden="true"><i data-lucide="telescope"></i></div>
+                            <h3>Tidak ada yang cocok</h3>
+                            <p>Coba kata kunci atau kategori lain — atau reset filter di bawah.</p>
+                            <button class="btn btn-secondary" onclick="resetCatalogFilters()">Reset filter</button>
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = data.products.map(renderProductCard).join('');
+                }
+                if (window.lucide) lucide.createIcons();
+                if (window.StoreuMotion) StoreuMotion.revealGrid(container);
+            } catch (err) {
+                console.error('Failed to load products:', err);
+            }
+        }
+
+        function resetCatalogFilters() {
+            currentCategory = 'all'; currentSearch = ''; currentSort = '';
+            const si = document.getElementById('search-input');
+            if (si) { si.value = ''; toggleSearchClear(); }
+            document.querySelectorAll('.category-tab').forEach(t => {
+                const on = t.dataset.category === 'all';
+                t.classList.toggle('active', on);
+                t.setAttribute('aria-selected', on ? 'true' : 'false');
+            });
+            document.querySelectorAll('.sort-btn').forEach(b => b.classList.toggle('active', b.dataset.sort === ''));
+            loadProducts();
+        }
+
+        // Filter by category
+        function filterByCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                const on = tab.dataset.category === cat;
+                tab.classList.toggle('active', on);
+                tab.setAttribute('aria-selected', on ? 'true' : 'false');
+            });
+            loadProducts();
+            const catalogSection = document.getElementById('catalog');
+            if (catalogSection) catalogSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (window.StoreuSound) StoreuSound.play('click');
+        }
+
+        // Search handler (debounced)
+        let searchTimeout;
+        function handleSearch(value) {
+            toggleSearchClear();
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                currentSearch = value.trim();
+                loadProducts();
+            }, 300);
+        }
+        function toggleSearchClear() {
+            const si = document.getElementById('search-input');
+            const btn = document.getElementById('search-clear');
+            if (si && btn) btn.hidden = !si.value;
+        }
+        document.getElementById('search-clear').addEventListener('click', () => {
+            const si = document.getElementById('search-input');
+            si.value = ''; toggleSearchClear(); currentSearch = ''; loadProducts(); si.focus();
+        });
+
+        // Sort handler
+        function handleSort(value) {
+            currentSort = value;
+            document.querySelectorAll('.sort-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.sort === value);
+            });
+            loadProducts();
+            if (window.StoreuSound) StoreuSound.play('click');
+        }
+
+        // Promo banner — diisi dari data diskon ASLI (maksimum discount_percentage)
+        async function loadPromoBanner() {
+            try {
+                const data = await API.get('/api/products?limit=100');
+                const products = data.products || [];
+                const maxDisc = products.reduce((m, p) => Math.max(m, p.discount_percentage || 0), 0);
+                const banner = document.getElementById('promo-banner');
+                if (maxDisc > 0 && banner) {
+                    banner.hidden = false;
+                    requestAnimationFrame(() => {
+                        document.documentElement.style.setProperty('--banner-h', banner.offsetHeight + 'px');
+                    });
+                    banner.innerHTML = `<i data-lucide="flame" style="width:16px;height:16px"></i>
+                        <span>Spesial: diskon hingga <strong>${maxDisc}%</strong> untuk produk pilihan. Jangan sampai ketinggalan!</span>`;
+                    if (window.lucide) lucide.createIcons();
+                }
+                // Hero stat: jumlah produk asli
+                const stat = document.getElementById('stat-products');
+                if (stat) stat.textContent = (data.total ?? products.length) + '+';
+            } catch (err) { /* banner tetap tersembunyi — tanpa klaim palsu */ }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFeatured();
+            loadProducts();
+            loadPromoBanner();
+        });
+    </script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        if (window.lucide) {
+            lucide.createIcons();
+            const observer = new MutationObserver((mutations) => {
+                let shouldUpdate = false;
+                for (let m of mutations) {
+                    if (m.addedNodes.length > 0) { shouldUpdate = true; break; }
+                }
+                if (shouldUpdate) {
+                    observer.disconnect();
+                    lucide.createIcons();
+                    observer.observe(document.body, { childList: true, subtree: true });
+                }
+            });
+            observer.observe(document.body, { childList: true, subtree: true });
+        }
+    </script>
+</body>
+</html>
